@@ -112,7 +112,7 @@
     - 执行器生成这个操作的binlog，并把binlog写入磁盘。
     - 执行器调用引擎的提交事务接口，引擎把刚刚写入的redo log改成commit状态，更新完成
 ##### 执行流程
-![avatar](2e5bff4910ec189fe1ee6e2ecc7b4bbe.png)
+![avatar](../pics/2e5bff4910ec189fe1ee6e2ecc7b4bbe.png)
 
 ##### 两阶段提交
 > redo log的写入拆成了两个步骤：prepare和commit，这就是两阶段提交。
