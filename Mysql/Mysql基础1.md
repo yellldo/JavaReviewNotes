@@ -44,8 +44,7 @@ innodb_flush_neighbors 参数就是用来控制这个行为的，值为 1 的时
 命令
 
   ```mysql
-   alter table A
-  engine =InnoDB
+   alter table A engine =InnoDB
   ```
 
 ## count(*) 的实现方式
