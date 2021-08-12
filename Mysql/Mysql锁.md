@@ -49,3 +49,17 @@ lock tables … read/write
 
 - 更新数据都是先读后写的，而这个读，只能读当前的值，称为“当前读”（current read）。
 - 除了 update 语句外，select 语句如果加锁，也是当前读。
+
+## next-key lock
+
+> 行锁和间隙锁共同称为next-key lock
+
+加锁原则：
+
+- 加锁的基本单位是 next-key lock。希望你还记得，next-key lock 是前开后闭区间。
+- 查找过程中访问到的对象才会加锁。
+- 索引上的等值查询，给唯一索引加锁的时候，next-key lock 退化为行锁。
+- 索引上的等值查询，向右遍历时且最后一个值不满足等值条件的时候，next-key lock 退化为间隙锁。
+- 唯一索引上的范围查询会访问到不满足条件的第一个值为止。
+
+
