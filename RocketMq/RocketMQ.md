@@ -48,3 +48,6 @@
 - NameServer集群间互不通信，没有主备的概念。
 - NameServer中的Broker、Topic等信息默认不持久化。
    
+
+
+以group为单位
