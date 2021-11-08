@@ -16,12 +16,12 @@
 ```c
 class ReadView {
  private:
-    trx_id_t m_low_limit_id; /*大于等于这个ID的事务均不可见*/
-    trx_id_t m_up_limit_id; /*小于这个ID的事务均可见*/
-    trx_id_t m_creator_trx_id; /*创建该Read View的事务ID*/
-    trx_id_t m_low_limit_no; /*事务Number，小于该Number的undo logs均可以被Purge*/
-    ids_t m_ids; /*创建Read View时的活跃事务列表*/ 
-    m_closed;  /*标记Read View是否close*/
+    trx_id_t m_low_limit_id;    /*大于等于这个ID的事务均不可见*/
+    trx_id_t m_up_limit_id;     /*小于这个ID的事务均可见*/
+    trx_id_t m_creator_trx_id;  /*创建该Read View的事务ID*/
+    trx_id_t m_low_limit_no;    /*事务Number，小于该Number的undo logs均可以被Purge*/
+    ids_t m_ids;                /*创建Read View时的活跃事务列表*/ 
+    m_closed;                   /*标记Read View是否close*/
   
 }
 ```
