@@ -1,6 +1,6 @@
 ## InnoDB对MVCC的实现
 
-`MVVC`的实现依赖**隐藏字段、undo log、Read View**。在内部实现中，`InnoDB`通过数据行的`DB_TRX_ID`和`Read View`来判断数据的可见性，如不可见，则通过数据行的`DB_ROLL_PTR`
+`MVCC`的实现依赖**隐藏字段、undo log、Read View**。在内部实现中，`InnoDB`通过数据行的`DB_TRX_ID`和`Read View`来判断数据的可见性，如不可见，则通过数据行的`DB_ROLL_PTR`
 找到`undo log`中的历史版本。每个事务读到的数据版本可能不一样，在同一个事务中，用户只能看到该事务创建的`Read View`之前已经提交的修改和该事务本身做的修改。
 
 ### 隐藏字段
