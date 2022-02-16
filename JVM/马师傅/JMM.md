@@ -45,12 +45,12 @@ JVM级别如何规范（JSR133）
 
    volatile内存区的读写 都加屏障
 
-   > StoreStoreBarrier</br>
-   > volatile写操作</br>
+   > StoreStoreBarrier
+   > volatile写操作
    > StoreLoadBarrier
 
-   > LoadLoadBarrier</br>
-   > volatile读操作</br>
+   > LoadLoadBarrier
+   > volatile读操作
    > LoadStoreBarrier
 
 3. OS和硬件层面
