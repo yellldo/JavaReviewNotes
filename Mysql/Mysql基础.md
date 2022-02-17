@@ -19,7 +19,7 @@
 - 连接命令
 
   ```shell
-  mysql -h$ip -P$port -u$yser -p
+  mysql -h$ip -P$port -u$user -p
   ```
 - 权限
     - 如何获取权限
