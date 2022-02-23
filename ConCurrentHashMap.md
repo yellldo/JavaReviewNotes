@@ -1,7 +1,7 @@
 ## ConCurrentHashMap
 
 > 1.8 是通过cas和synchronize保证线程安全的
-> 1.7 是分段锁  
+> 1.7 是分段锁，每个Segment上同时只有一个线程可以操作
 > 判断sizeCtrl，
 
 
