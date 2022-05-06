@@ -6,10 +6,9 @@
 >
 > 此外，NameServer还负责监控每个Broker的存活状态。
 
-- 每个Broker都需要喝所有的NameServer节点进行通信。当Broker保存的Topic信息发生变化时，它会主动通知所有NameServer更新路由信息，为了保证数据一致性。
-
-- Broker还会定时给所有的NameServer节点上报路由信息。这个上报路由信息的RPC请求，也同时起到Broker和NameServer之间的心跳作用，NameServer依靠这个心跳来确定Broker的健康状态。
-- 如果NameServer检测到与Broker的连接中断，NameServer会认为这个Broker不再能提供服务。NameServer会立即把这个Broker从路由信息中移除掉，避免客户端连接到一个不可用的Broker上。
+- 每个Broker都需要和所有的NameServer节点进行通信（保持长连接）。当Broker保存的Topic信息发生变化时，它会主动通知所有NameServer更新路由信息，为了保证数据一致性。
+- Broker每隔30s所有的NameServer节点上报路由信息。这个上报路由信息的RPC请求，也同时起到Broker和NameServer之间的心跳作用，NameServer依靠这个心跳来确定Broker的健康状态。
+- NameServer每隔10s会扫描 一次brokerLiveTable，如果120s内没有收到心跳，就认为broker失效，并更新topic路由信息，将失效的broker剔除掉。
 
 NameServer结构非常简单，排除 KV 读写相关的类之后，一共只有 6 个类。
 

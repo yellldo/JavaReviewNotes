@@ -3,11 +3,15 @@
 > 保存了所有的路由信息，这些路由信息都保存在内存中，并没有持久化。
 
 ```java
-// 保存主题和队列的信息。QueueData保存的Broker name
+// topic信息队列的路由信息，消息发送时根据路由表进行负载均衡
 private final HashMap<String/* topic */, List<QueueData>> topicQueueTable;
+// Broker基础信息，包含brokerName、所属集群名称、主备Broker地址
 private final HashMap<String/* brokerName */, BrokerData> brokerAddrTable;
+// Broker集群信息，存储集群中所有的Broker名称。
 private final HashMap<String/* clusterName */, Set<String/* brokerName */>> clusterAddrTable;
+// Broker状态信息，NameServer每次收到心跳时会替换该信息
 private final HashMap<String/* brokerAddr */, BrokerLiveInfo> brokerLiveTable;
+// Broker上的FliterServer列表，用于类模式消息过滤，
 private final HashMap<String/* brokerAddr */, List<String>/* Filter Server */> filterServerTable;
 ```
 
