@@ -18,3 +18,7 @@ NameServer结构非常简单，排除 KV 读写相关的类之后，一共只有
 - **BrokerHousekeepingService**：监控 Broker 连接状态的代理类。
 - **DefaultRequestProcessor**：负责处理客户端和 Broker 发送过来的 RPC 请求的处理器。
 - **ClusterTestRequestProcessor**：用于测试的请求处理器。（测试类不需要管）
+
+
+1. 一个Topic默认有4个queue
+2. 一个Broker默认为每一个主题创建4个读队列和4个写队列
