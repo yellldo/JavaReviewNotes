@@ -59,9 +59,13 @@ JVM级别如何规范（JSR133）
 
 1. 字节码层面
 
-   ACC_SYNCHRONIZED
+   ACC_SYNCHRONIZED --加在方法上。隐形标记
 
-   monitorenter monitorexit
+   -
+   方法调用指令检查该方法的常量池中是否包含ACC_SYNCHRONIZED标记符，如果有，JVM要求线程在调用之前请求锁，执行线程将先获取monitor,获取成功之后会执行方法体，方法执行完再释法monitor。在方法执行期间，其它任何线程都无法再获取同一个monitor对象。
+   - MonitorRecord，一个被锁住的对象会和一个MR关联，有一个Owner字段存放拥有该锁的线程的唯一标识，表示该锁被这个线程占用。
+
+   monitorenter monitorexit --- 加在代码块上
 
 2. JVM层面
 
