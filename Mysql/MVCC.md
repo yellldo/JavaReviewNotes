@@ -58,7 +58,7 @@ class ReadView {
 在事务隔离级别`RC`和`RR`（InnoDB存储引擎的默认事务隔离级别）下，`InnoDB`存储引擎使用`MVCC`（非锁定一致性读），但它们生成`Read View`的时机却不同
 
 - 在RC隔离级别下的`每次select`查询前都生成一个`Read View`（m_ids列表）
-- 在RR隔离级别下只在事务开始后`每一此select`数据前生成一个`Read View`（m_ids列表）
+- 在RR隔离级别下只在事务开始后`每一次select`数据前生成一个`Read View`（m_ids列表）
 
 ### MVCC解决不可重复的问题
 
