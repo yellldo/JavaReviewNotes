@@ -10,9 +10,9 @@ AbstractExecutor
 
 2. maximumPoolSize 最大线程数
 
-3. keepAliveTime
+3. keepAliveTime 闲置时间
 
-4. TimeUnit
+4. TimeUnit 时间单位
 
 5. BlockingQueue 任务队列
 
