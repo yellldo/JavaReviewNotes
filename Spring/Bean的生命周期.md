@@ -8,7 +8,7 @@
 
   - 填充属性
 
-    > 调用populateBean给属性赋值xq
+    > 调用populateBean给属性赋值
 
   - 设置容器对象属性
 
