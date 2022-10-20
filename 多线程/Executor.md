@@ -20,10 +20,7 @@ AbstractExecutor
 
 7. RejectStrategy
 
-   > Abort 抛出异常
-   >
-   > DisCard 抛弃掉
-   >
-   > DisCardOld 抛弃掉老的
-   >
+   > Abort 抛出异常  
+   > DisCard 抛弃掉  
+   > DisCardOld 抛弃掉老的  
    > CallerRuns 调用者执行
