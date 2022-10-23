@@ -1,9 +1,7 @@
 ## NameServer
 
-> NameServer是一个独立的进程，为Broker、生产者和消费者提供服务。
->
-> NameServer最主要的功能就是，为客户端提供寻址服务，协助客户端找到主题对应的Broker地址。
->
+> NameServer是一个独立的进程，为Broker、生产者和消费者提供服务。  
+> NameServer最主要的功能就是，为客户端提供寻址服务，协助客户端找到主题对应的Broker地址。  
 > 此外，NameServer还负责监控每个Broker的存活状态。
 
 - 每个Broker都需要和所有的NameServer节点进行通信（保持长连接）。当Broker保存的Topic信息发生变化时，它会主动通知所有NameServer更新路由信息，为了保证数据一致性。

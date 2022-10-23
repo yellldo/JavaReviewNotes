@@ -22,7 +22,7 @@ CPU为了提高指令执行效率，会再一条指令执行过程中（比如�
 
 硬件内存屏障
 
-> sfence: 在sfence指令前的写操作当必须在sfence指令后的写操作前完成。   
+> sfence: 在sfence指令前的写操作当必须在sfence指令后的写操作前完成。     
 > lfence: 在lfence指令前的读操作当必须在lfence指令后的读操作前完成。  
 > mfence: 在mfence指令前的读写操作当必须在mfence指令后的读写操作前完成。
 
