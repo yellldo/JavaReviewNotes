@@ -1,6 +1,8 @@
 ### Bean的生命周期
 
-- 实例化	
+- 先创建BeanDefinition
+
+- 实例化(反射)
 
   > 在堆空间中申请内存，属性值赋默认值，调用createBeanInstance， 核心逻辑是反射
 
@@ -17,6 +19,8 @@
   - 执行前置初始化方法
 
     > 调用BeanPostProcessor的postProcessBeforeInitialization方法
+
+  - 调用init方法
 
   - 执行后置初始化方法
 
