@@ -1,3 +1,68 @@
 ## SPI
 
-### 服务发现
+```java
+protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
+    	// 判断是否开启了自动装配
+		if (!isEnabled(annotationMetadata)) {
+			return EMPTY_ENTRY;
+		}
+		AnnotationAttributes attributes = getAttributes(annotationMetadata);
+      	//获取候选配置类
+		List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+    	// 去掉重复配置类
+		configurations = removeDuplicates(configurations);
+		//获得注解中被exclude和excludeName排除的类的集合
+		Set<String> exclusions = getExclusions(annotationMetadata, attributes);
+    	//检查被排除类是否可实例化、是否被自动注册配置所使用，不符合条件则抛出异常
+		checkExcludedClasses(configurations, exclusions);
+    	//从候选配置类中去除掉被排除的类
+		configurations.removeAll(exclusions);
+		configurations = getConfigurationClassFilter().filter(configurations);
+	    //将配置类和排除类通过事件传入到监听器中
+		fireAutoConfigurationImportEvents(configurations, exclusions);
+    	//最终返回符合条件的自动配置类的全限定名数组
+		return new AutoConfigurationEntry(configurations, exclusions);
+	}
+```
+
+```java
+private static Map<String, List<String>> loadSpringFactories(ClassLoader classLoader) {
+    	// 先判断缓存里有没有，有就直接返回
+		Map<String, List<String>> result = cache.get(classLoader);
+		if (result != null) {
+			return result;
+		}
+
+		result = new HashMap<>();
+		try {
+            // 加载META-INF/spring.factories
+			Enumeration<URL> urls = classLoader.getResources(FACTORIES_RESOURCE_LOCATION);
+			while (urls.hasMoreElements()) {
+				URL url = urls.nextElement();
+				UrlResource resource = new UrlResource(url);
+				Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+				for (Map.Entry<?, ?> entry : properties.entrySet()) {
+					String factoryTypeName = ((String) entry.getKey()).trim();
+					String[] factoryImplementationNames =
+							StringUtils.commaDelimitedListToStringArray((String) entry.getValue());
+					for (String factoryImplementationName : factoryImplementationNames) {
+						result.computeIfAbsent(factoryTypeName, key -> new ArrayList<>())
+								.add(factoryImplementationName.trim());
+					}
+				}
+			}
+
+			// Replace all lists with unmodifiable lists containing unique elements
+			result.replaceAll((factoryType, implementations) -> implementations.stream().distinct()
+					.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList)));
+			cache.put(classLoader, result);
+		}
+		catch (IOException ex) {
+			throw new IllegalArgumentException("Unable to load factories from location [" +
+					FACTORIES_RESOURCE_LOCATION + "]", ex);
+		}
+		return result;
+	}
+```
+
+> 加载META-INF/spring.factories，返回一个Map，加载的时候会创建一个cache，下次读取直接从缓存拿即可。
