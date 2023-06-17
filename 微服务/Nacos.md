@@ -38,4 +38,4 @@ public void registerInstance(String namespaceId, String serviceName, Instance in
     }
 ```
 
-> 心跳检测任务 int target = distroHash(serviceName) % servers.size(); 
+> 心跳检测任务获取目标服务端下标 int target = distroHash(serviceName) % servers.size(); 
