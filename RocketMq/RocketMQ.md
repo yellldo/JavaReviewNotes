@@ -47,4 +47,3 @@
 - NameServer可以部署多个，当多个NameServer存在时，其他角色同时向多个NameServer上报信息，以保证高可用。
 - NameServer集群间互不通信，没有主备的概念。
 - NameServer中的Broker、Topic等信息默认不持久化。
-  
