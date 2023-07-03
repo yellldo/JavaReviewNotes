@@ -3,6 +3,8 @@
 > CMS适用于小内存应用
 >
 > CMS是基于标记-清除算法实现的
+>
+> 通过`-XX:+UseConcMarkSweepGC`来开启CMS
 
 - 初始标记（CMS initial mark）STW
 - 并发标记（CMS concurrent mark）耗时最长

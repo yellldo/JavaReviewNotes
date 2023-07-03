@@ -19,7 +19,7 @@
             throw new NacosException(NacosException.INVALID_PARAM,
                     "service not found, namespace: " + namespaceId + ", service: " + serviceName);
         }
-        // 添加实例
+        // 服务实例添加到对应的service列表中，并创建一个健康检查的task
         addInstance(namespaceId, serviceName, instance.isEphemeral(), instance);
     }
 ```
@@ -46,3 +46,4 @@ public void addInstance(String namespaceId, String serviceName, boolean ephemera
 ### 客户端注册
 
 > 
+> 心跳检测任务获取目标服务端下标 int target = distroHash(serviceName) % servers.size(); 
