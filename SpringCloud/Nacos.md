@@ -45,5 +45,4 @@ public void addInstance(String namespaceId, String serviceName, boolean ephemera
 
 ### 客户端注册
 
-> 
 > 心跳检测任务获取目标服务端下标 int target = distroHash(serviceName) % servers.size(); 
