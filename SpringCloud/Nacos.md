@@ -1,32 +1,18 @@
 ## Nacos
 
-> Nacos 1.x版本调用接口是通过Http的方式，2.x版本改为rpc
-
 ### 服务注册
 
-> 客户端服务注册入口是NacosNamingService.registerInstance
+> 1. 初次注册，会创建一个空的Service 为后面做准备
+>
+> 2. 添加实例
+> 3. 根据namespaceId、serviceName、ephemeral 构建key
+> 4. onPut 将注册实例更新到内存注册表
 
 ```java
-public void registerInstance(String serviceName, String groupName, String ip, int port, String clusterName)
-            throws NacosException {
-        // 组装参数
-        Instance instance = new Instance();
-        instance.setIp(ip);
-        instance.setPort(port);
-        instance.setWeight(1.0);
-        instance.setClusterName(clusterName);
-        // 向服务端/nacos/v1/ns/instance 发送请求
-        registerInstance(serviceName, groupName, instance);
-    }
-```
-
-> 服务器端收到请求
-
-```java
-public void registerInstance(String namespaceId, String serviceName, Instance instance) throws NacosException {
-        // 如果是第一次注册，就创建一个空的service，不是则将注册的服务put到serviceMap中 并初始化（创建一个心跳检测的task）
+ public void registerInstance(String namespaceId, String serviceName, Instance instance) throws NacosException {
+        // 创建一个空的Service
         createEmptyService(namespaceId, serviceName, instance.isEphemeral());
-        // 获取刚刚创建的service
+        
         Service service = getService(namespaceId, serviceName);
         
         if (service == null) {
@@ -37,5 +23,26 @@ public void registerInstance(String namespaceId, String serviceName, Instance in
         addInstance(namespaceId, serviceName, instance.isEphemeral(), instance);
     }
 ```
+
+```java
+public void addInstance(String namespaceId, String serviceName, boolean ephemeral, Instance... ips)
+            throws NacosException {
+		// 构建key
+        String key = KeyBuilder.buildInstanceListKey(namespaceId, serviceName, ephemeral);
+
+        Service service = getService(namespaceId, serviceName);
+
+        synchronized (service) {
+            List<Instance> instanceList = addIpAddresses(service, ephemeral, ips);
+
+            Instances instances = new Instances();
+            instances.setInstanceList(instanceList);
+			
+            consistencyService.put(key, instances);
+        }
+    }
+```
+
+### 客户端注册
 
 > 心跳检测任务获取目标服务端下标 int target = distroHash(serviceName) % servers.size(); 
