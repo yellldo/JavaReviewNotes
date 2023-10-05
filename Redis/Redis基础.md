@@ -47,7 +47,6 @@ typedef struct redisObject {
     unsigned *ptr;
 }robj;
 ```
-
 #### 对象类型
 
 |   常量类型   |  对象的名称  |
@@ -58,3 +57,10 @@ typedef struct redisObject {
 |  REDIS_SET   |   集合对象   |
 |  REDIS_ZSET  | 有序集合对象 |
 
+#### Redis全局hash字典
+> Redis整体是一个哈希表来存储所有的键值对，无论数据类型。  
+> 哈希表，本质就是一个数组，每个元素被叫做哈希桶，不管什么数据类型，每个桶里面的 entry 保存着实际具体值的指针。  
+> 哈希表的时间复杂度是 O(1)，只需要计算每个键的哈希值，便知道对应的哈希桶位置，定位桶里面的 entry 找到对应数据，这个也是 Redis 快的原因之一
+
+
+![a](../pics/1694161125086.jpg)
