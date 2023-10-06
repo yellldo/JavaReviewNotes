@@ -3,7 +3,6 @@
 ### 服务注册
 
 > 1. 初次注册，会创建一个空的Service 为后面做准备
->
 > 2. 添加实例
 > 3. 根据namespaceId、serviceName、ephemeral 构建key
 > 4. onPut 将注册实例更新到内存注册表

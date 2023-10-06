@@ -20,7 +20,7 @@
 
     > 调用BeanPostProcessor的postProcessBeforeInitialization方法
 
-  - 调用init方法
+  - 调用invokeInitMethods方法
 
   - 执行后置初始化方法
 
