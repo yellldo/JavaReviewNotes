@@ -35,7 +35,7 @@ public ConfigurableApplicationContext run(String...args){
         ApplicationArguments applicationArguments=new DefaultApplicationArguments(args);
         // 加载环境变量
         ConfigurableEnvironment environment=prepareEnvironment(listeners,bootstrapContext,applicationArguments);
-        // 配置忽略bean
+        // 配置bean忽略信息
         configureIgnoreBeanInfo(environment);
         // 打印banner
         Banner printedBanner=printBanner(environment);
